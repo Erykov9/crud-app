@@ -1,5 +1,6 @@
 import { Button, Container } from "react-bootstrap";
-import Post from "../Post/Post";
+import PostList from "../../features/PostList";
+import { NavLink } from "react-router-dom";
 
 
 const Home = () => { 
@@ -8,9 +9,9 @@ const Home = () => {
     <>
       <div className="d-flex justify-content-between mb-4">
         <h2>All Posts</h2>
-        <Button variant="outline-info">Add Post</Button>
+        <Button variant="outline-info" as={NavLink} to={'/post/add'}>Add Post</Button>
       </div>
-      <Post/>
+      <PostList />
     </>
   )
 }

@@ -6,8 +6,9 @@ const initialState = {
       author: 'Jon Doe',
       publishDate: '12.09.2022',
       shortDescription: 'Lorem ipsum',
-      description: 'Long description'
+      description: 'vLong descriptionLong descriptionLong descriptionLong descriptionLong descriptionLong descriptionLong descriptionLong descriptionLong descriptionLong descriptionLong descriptionLong description'
     },
+
     {
       id: '2',
       title: 'Example title 2',
@@ -16,6 +17,7 @@ const initialState = {
       shortDescription: 'Lorem ipsum',
       description: 'Long description'
     },
+
     {
       id: '3',
       title: 'Example title 3',
@@ -24,6 +26,7 @@ const initialState = {
       shortDescription: 'Lorem ipsum',
       description: 'Long description'
     },
+
     {
       id: '4',
       title: 'Example title 4',

@@ -6,7 +6,6 @@ import PostEdit from "./components/pages/PostEdit/PostEdit";
 import ErrorPage from "./components/pages/ErrorPage/ErrorPage";
 import Header from "./components/views/Header/Header";
 import Footer from "./components/views/Footer/Footer";
-import SinglePost from "./components/pages/SinglePost";
 
 import { Routes, Route } from 'react-router-dom';
 import { Container } from "react-bootstrap";
@@ -19,7 +18,7 @@ function App() {
         <Route path="/" element={<Home/>} />
         <Route path="/about" element={<About />} />
         <Route path="*" element={<ErrorPage />} />
-        <Route path="/post/:id" element={<SinglePost />} />
+        <Route path="/post/:id" element={<Post />} />
         <Route path="/post/add" element={<PostAdd/>} />
         <Route path="/post/edit/:id" element={<PostEdit/>} />
       </Routes>
