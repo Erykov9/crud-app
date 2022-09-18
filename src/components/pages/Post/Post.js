@@ -26,6 +26,7 @@ const Post = () => {
     e.preventDefault();
     dispatch(deletePost(id));
   }
+
   if(!postIdData) return <Navigate to="/"/>
   return (
     <>
