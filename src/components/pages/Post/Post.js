@@ -7,6 +7,7 @@ import { Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { deletePost } from "../../../redux/postsRedux";
 import { Navigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 
 
@@ -43,7 +44,7 @@ const Post = () => {
         </div>
         <div>
           <Stack className="d-flex flex-row" style={{width: '20%'}}gap={1}>
-            <Button variant="outline-info" >Edit</Button>
+            <Button variant="outline-info" as={NavLink} to={'/post/edit/' + id}>Edit</Button>
             <Button variant="outline-danger" onClick={handleShow}>Delete</Button>
           </Stack>
         </div>

@@ -2,7 +2,7 @@ import PostCard from "./PostCard"
 import { useSelector } from "react-redux";
 import { getPosts } from "../../redux/postsRedux";
 
-const PostList = (props) => {
+const PostList = () => {
   const postStore = useSelector(getPosts);
 
   return (
