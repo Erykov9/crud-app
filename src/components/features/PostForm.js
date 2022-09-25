@@ -1,10 +1,12 @@
 import { Form } from "react-bootstrap";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
-import { addPost } from "../../redux/postsRedux";
 import PropTypes from 'prop-types'
+import ReactQuill from "react-quill";
+import 'react-quill/dist/quill.snow.css';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { useForm } from "react-hook-form";
 
 const PostForm = ({action, actionText, ...props}) => {
   const [title, setTitle] = useState(props.title || '');
@@ -12,38 +14,70 @@ const PostForm = ({action, actionText, ...props}) => {
   const [date, setDate] = useState(props.publishDate || '');
   const [short, setShort] = useState(props.shortDescription || '');
   const [description, setDescription] = useState(props.description || '');
+  const [contentError, setContentError] = useState(false);
+  const [dateError, setDateError] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    action({ title, author, publishDate: date, shortDescription: short, description });
+  const handleSubmit = () => {
+    setContentError(!description);
+    setDateError(!date);
+    if (description && date) {
+      action({ title, author, publishDate: date, shortDescription: short, description })
+    }
   }
+
+  const { register, handleSubmit: validate, formState: {errors}} = useForm();
 
   return (
     <div>
-       <Form onSubmit={handleSubmit}>
+    <Form onSubmit={validate(handleSubmit)}>
       <Form.Group className="mb-3 col-3">
         <Form.Label>Title:</Form.Label>
-        <Form.Control type="text" placeholder="Title" id="title" value={title} onChange={e => setTitle(e.target.value)}/>
+        <Form.Control
+        {...register("title", {required: true, minLength: 3 })}
+        type="text" 
+        placeholder="Title"
+        id="title" 
+        value={title} 
+        onChange={e => setTitle(e.target.value)}/>
+        {errors.title && <small className="d-block form-text text-danger mt-2">This field is required and should be at least 3 letters long</small>}
       </Form.Group>
 
       <Form.Group className="mb-3 col-3">
         <Form.Label>Author:</Form.Label>
-        <Form.Control type="text" placeholder="Author" id="author" value={author} onChange={e => setAuthor(e.target.value)}/>
+        <Form.Control 
+        {...register("author", {required: true, minLength: 3})}
+        type="text" 
+        placeholder="Author" 
+        id="author" 
+        value={author} 
+        onChange={e => setAuthor(e.target.value)}/>
+        {errors.author && <small className="d-block form-text text-danger mt-2">This field is required and should be at least 3 letters long</small>}
       </Form.Group>
 
       <Form.Group className="mb-3 col-3">
         <Form.Label>Publish date:</Form.Label>
-        <Form.Control type="text" placeholder="Ex. 12.11.1994" id="date" value={date} onChange={e => setDate(e.target.value)}/>
+        <DatePicker 
+        selected={date} 
+        onChange={(d) => setDate(d)}/>
+        {dateError && <small className="d-block form-text text-danger mt-2">Date cannot be empty</small>}
       </Form.Group>
 
       <Form.Group className="mb-3">
         <Form.Label>Short description:</Form.Label>
-        <Form.Control type="text" placeholder="Short description" id="short" value={short} onChange={e => setShort(e.target.value)}/>
+        <Form.Control 
+        {...register("short", {required: true, minLength: 20})}
+        type="text" 
+        placeholder="Short description" 
+        id="short" 
+        value={short} 
+        onChange={e => setShort(e.target.value)}/>
+         {errors.short && <small className="d-block form-text text-danger mt-2">This field is required and should be at least 20 letters long</small>}
       </Form.Group>
 
       <Form.Group className="mb-3">
         <Form.Label>Description:</Form.Label>
-        <Form.Control as="textarea" type="text" placeholder="Description" id="description" value={description} onChange={e => setDescription(e.target.value)}/>
+        <ReactQuill theme="snow" value={description} onChange={setDescription} />
+        {contentError && <small className="d-block form-text text-danger mt-2">Content can't be empty</small>}
       </Form.Group>
       <Button variant="primary" type="submit">
         {actionText}

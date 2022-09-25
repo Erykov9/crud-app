@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { deletePost } from "../../../redux/postsRedux";
 import { Navigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
+import dateToStr from "../../../utils/dateToStr";
 
 
 
@@ -27,6 +28,7 @@ const Post = () => {
     dispatch(deletePost(id));
   }
 
+
   if(!postIdData) return <Navigate to="/"/>
   return (
     <>
@@ -36,9 +38,8 @@ const Post = () => {
             <Card.Body>
               <Card.Title><strong>{postIdData.title}</strong></Card.Title>
               <Card.Text><b>Author: </b>{postIdData.author}</Card.Text>
-              <Card.Text><b>Published: </b>{postIdData.publishDate}</Card.Text>
-              <Card.Text>
-                {postIdData.description}
+              <Card.Text><b>Published: </b>{dateToStr(postIdData.publishDate)}</Card.Text>
+              <Card.Text dangerouslySetInnerHTML={{ __html: postIdData.description }}>
               </Card.Text>
             </Card.Body>
           </Card>
