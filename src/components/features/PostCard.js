@@ -11,6 +11,7 @@ const PostCard = (props) => {
           <Card.Title><strong>{props.title}</strong></Card.Title>
           <Card.Text><b>Author: </b>{props.author}</Card.Text>
           <Card.Text><b>Published: </b>{dateToStr(props.publishDate)}</Card.Text>
+          <Card.Text><b>Category: </b>{props.category}</Card.Text>
           <Card.Text>
             {props.shortDescription}...
           </Card.Text>

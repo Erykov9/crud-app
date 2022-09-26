@@ -11,7 +11,7 @@ const EditPostForm = () => {
   const currentPost = useSelector(state => getPostById(state, id));
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log(currentPost.title)
+  console.log(currentPost.category)
 
   const handleSubmit = post => {
     dispatch(editPost({...post, id}))
@@ -20,7 +20,7 @@ const EditPostForm = () => {
 
   return (
     <>
-      <PostForm action={handleSubmit} actionText='Edit post' title={currentPost.title} author={currentPost.author} publishDate={currentPost.publishDate} shortDescription={currentPost.shortDescription} description={currentPost.description}/>
+      <PostForm action={handleSubmit} actionText='Edit post' title={currentPost.title} author={currentPost.author} publishDate={currentPost.publishDate} category={currentPost.category} shortDescription={currentPost.shortDescription} description={currentPost.description}/>
     </>
   )
 }

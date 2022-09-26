@@ -11,8 +11,6 @@ import { NavLink } from "react-router-dom";
 import dateToStr from "../../../utils/dateToStr";
 
 
-
-
 const Post = () => {
   const { id } = useParams();
   const postIdData = useSelector((state) => getPostById(state, id));
@@ -39,6 +37,7 @@ const Post = () => {
               <Card.Title><strong>{postIdData.title}</strong></Card.Title>
               <Card.Text><b>Author: </b>{postIdData.author}</Card.Text>
               <Card.Text><b>Published: </b>{dateToStr(postIdData.publishDate)}</Card.Text>
+              <Card.Text><b>Category: </b>{postIdData.category}</Card.Text>
               <Card.Text dangerouslySetInnerHTML={{ __html: postIdData.description }}>
               </Card.Text>
             </Card.Body>

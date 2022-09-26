@@ -7,6 +7,9 @@ import 'react-quill/dist/quill.snow.css';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useForm } from "react-hook-form";
+import { getCategory } from "../../redux/categoriesRedux";
+import { useSelector } from "react-redux";
+import shortid from "shortid";
 
 const PostForm = ({action, actionText, ...props}) => {
   const [title, setTitle] = useState(props.title || '');
@@ -14,14 +17,18 @@ const PostForm = ({action, actionText, ...props}) => {
   const [date, setDate] = useState(props.publishDate || '');
   const [short, setShort] = useState(props.shortDescription || '');
   const [description, setDescription] = useState(props.description || '');
+  const [category, setCategory] = useState(props.category  || '');
   const [contentError, setContentError] = useState(false);
   const [dateError, setDateError] = useState(false);
 
+  const categoryId = useSelector(getCategory);
+
   const handleSubmit = () => {
+    setCategory(category)
     setContentError(!description);
     setDateError(!date);
     if (description && date) {
-      action({ title, author, publishDate: date, shortDescription: short, description })
+      action({ title, author, publishDate: date, category, shortDescription: short, description })
     }
   }
 
@@ -60,6 +67,14 @@ const PostForm = ({action, actionText, ...props}) => {
         selected={date} 
         onChange={(d) => setDate(d)}/>
         {dateError && <small className="d-block form-text text-danger mt-2">Date cannot be empty</small>}
+      </Form.Group>
+
+      <Form.Group className="mb-3 col-3">
+        <Form.Label>Category</Form.Label>
+        <Form.Select aria-label="Choose a category" value={category} onChange={e => setCategory(e.target.value)}>
+          <option>Choose a category...</option>
+          {categoryId.map(category => <option key={shortid()} value={category}>{category}</option>) }
+        </Form.Select>
       </Form.Group>
 
       <Form.Group className="mb-3">
